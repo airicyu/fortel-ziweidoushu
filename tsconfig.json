@@ -6,12 +6,12 @@
     "strict": true,
     "sourceMap": true,
     "declaration": true,
-    "declarationDir": "./dist/types",
+    "declarationDir": "./build/types",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "allowJs": true,
-    "outDir": "dist/",
+    "outDir": "build/",
     "typeRoots": [
       "./node_modules/@types", "./src/types"
     ],
