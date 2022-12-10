@@ -370,6 +370,24 @@ class DestinyBoard {
         return direction.add(this.config.gender == Gender.M ? Direction.CLOCKWISE : Direction.ANTI_CLOCKWISE)
     }
 
+    getMajorStarEnergyLevel(majorStar: MajorStar) {
+        return MajorStar.majorStarPlacers.get(majorStar)!.evalEnergyLevel(MajorStar.majorStarPlacers.get(majorStar)!.evalGround(this))
+    }
+
+    getMajorStarDerivative(star: MajorStar | MinorStar) {
+        if (this.#bornStarDerivativeMap.get(StarDerivative.WEALTHINESS)?.equals(star)) {
+            return StarDerivative.WEALTHINESS
+        } else if (this.#bornStarDerivativeMap.get(StarDerivative.POWER)?.equals(star)) {
+            return StarDerivative.POWER
+        } else if (this.#bornStarDerivativeMap.get(StarDerivative.FAME)?.equals(star)) {
+            return StarDerivative.FAME
+        } else if (this.#bornStarDerivativeMap.get(StarDerivative.PROBLEM)?.equals(star)) {
+            return StarDerivative.PROBLEM
+        } else {
+            return null
+        }
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
     [util.inspect.custom](depth: number, opts: any): string {
         return util.inspect(this.toJSON(), opts)
