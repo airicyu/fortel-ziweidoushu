@@ -35,8 +35,7 @@ You can use `DestinyConfigBuilder.withlunar` to specify the parameters.
 And then use `new DestinyBoard(config)` to build the board.
 
 ```javascript
-import fortel, { DestinyBoard } from 'fortel-ziweidoushu'
-const { DestinyConfigBuilder, DayTimeGround, ConfigType, Gender } = fortel.config
+import { DestinyBoard, DestinyConfigBuilder, DayTimeGround, ConfigType, Gender } from 'fortel-ziweidoushu'
 
 // 農曆1952年三月十五日寅時女士
 const destinyBoard = new DestinyBoard(
@@ -112,8 +111,7 @@ Basically we need such information from text:
 - Gender
 
 ```javascript
-import fortel, { DestinyBoard } from 'fortel-ziweidoushu'
-const { DestinyConfigBuilder, DayTimeGround, ConfigType, Gender } = fortel.config
+import { DestinyBoard, DestinyConfigBuilder, DayTimeGround, ConfigType, Gender } from 'fortel-ziweidoushu'
 
 // 農曆1952年三月十五日寅時女士
 const destinyBoard = new DestinyBoard(DestinyConfigBuilder.withText('農曆1952年三月十五日寅時女士'))
@@ -133,8 +131,7 @@ You can use `BoardCriteria` to check broad criteria condition.
 - 判斷夫妻宮是否有武曲, 貪狼, 任意一顆星。
 
 ```javascript
-import fortel, { DestinyBoard, Temple, BoardCriteria, starByName } from 'fortel-ziweidoushu'
-const { DestinyConfigBuilder, DayTimeGround, ConfigType, Gender } = fortel.config
+import { DestinyBoard, Temple, BoardCriteria, starByName, DestinyConfigBuilder, DayTimeGround, ConfigType, Gender } from 'fortel-ziweidoushu'
 
 // 公曆1952年4月9日寅時出生女士
 const destinyBoard = new DestinyBoard(DestinyConfigBuilder.withText('公曆1952年4月9日寅時出生女士'))
