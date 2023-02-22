@@ -24,7 +24,7 @@ const config = {
     ConfigType: {
         Ground: ConfigType.GROUND,
         Sky: ConfigType.SKY,
-        HUMAN: ConfigType.HUMAN,
+        Human: ConfigType.HUMAN,
     },
     Gender: {
         M: Gender.M,
