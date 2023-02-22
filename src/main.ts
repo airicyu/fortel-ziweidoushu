@@ -19,47 +19,15 @@ import { Temple } from './model/temple'
 import { destinyConfigTextParser } from './util/destinyConfigTextParser'
 import { starByName, starByKey } from './util/starUtil'
 
-const config = {
-    DestinyConfig,
-    ConfigType: {
-        Ground: ConfigType.GROUND,
-        Sky: ConfigType.SKY,
-        Human: ConfigType.HUMAN,
-    },
-    Gender: {
-        M: Gender.M,
-        F: Gender.F,
-    },
-    DayTimeGround,
-    DestinyConfigBuilder,
-    destinyConfigTextParser,
-}
-
-// prettier-ignore
-const fortel = {
-    // config
-    config,
-    // criteria
-    BoardCriteria, CellsScope,
-    // model classes
-    Sky, Ground, DestinyBoard,
-    Cell, BorrowCell, Temple,
-    MajorStar, MinorStar, MiniStar,
-    StarDerivative, Runtime,
-    // misc enums
-    LifeStage, Element, Luckiness, ShadowLight, Direction,
-    // calendar
-    defaultCalendar,
-    // util
-    starByName, starByKey
-}
-
-export default fortel
-
 // prettier-ignore
 export {
     // config
-    config,
+    DestinyConfig,
+    ConfigType,
+    Gender,
+    DayTimeGround,
+    DestinyConfigBuilder,
+    destinyConfigTextParser,
     // criteria
     BoardCriteria, CellsScope,
     // model classes
