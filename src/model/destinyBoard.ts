@@ -361,6 +361,29 @@ class DestinyBoard {
         }
     }
 
+    getTenYearCellGround(age: number): Ground {
+        const direction = this.configDirection.direction
+        const destinyCell = this.getCellByTemple(Temple.TEMPLE_DESTINY)
+
+        const cycleAgeEnd = destinyCell.getNextICell(-1 * direction).ageEnd
+        const logicalAge = mod(age, cycleAgeEnd)
+
+        let targetCell: Cell | undefined
+        for (let i = 0; i < this.#cells.length; i++) {
+            const cell = destinyCell.getNextICell(i * direction)
+            if (logicalAge <= cell.ageEnd) {
+                targetCell = cell
+                break
+            }
+        }
+
+        if (targetCell) {
+            return targetCell.ground
+        } else {
+            throw new Error('Cannot find ten year ground for unknown reason.')
+        }
+    }
+
     get shadowLight(): ShadowLight {
         return this.config.yearSky.index % 2 == 0 ? ShadowLight.LIGHT : ShadowLight.SHADOW
     }
