@@ -192,8 +192,10 @@ This means we check for the temple having **ANY ONE OF stars** 武曲, 貪狼.
 ## Author
 
 Airic Yu
-- Owner of Myfortel 紫微斗數起盤網站 ( https://www.myfortel.com/ ).
-- Author of 紫微斗數排盤 library for Java ( https://github.com/airicyu/Fortel ).
+- Owner of Myfortel 紫微斗數起盤網站(舊版) ( https://www.myfortel.com/ )
+- Owner of Myfortel 紫微斗數起盤網站(新版) ( https://airicyu.github.io/myfortel/ )
+- Author of 紫微斗數排盤 library for Java ( https://github.com/airicyu/Fortel )
+- Author of 紫微斗數排盤 library for JS ( https://www.npmjs.com/package/fortel-ziweidoushu )
 
 ## Special Credit
 
