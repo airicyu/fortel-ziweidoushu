@@ -48,6 +48,10 @@ class Sky {
         }),
     )
 
+    static values(): readonly Readonly<Sky>[] {
+        return Sky.SKYS
+    }
+
     equals(sky: Sky): boolean {
         return this === sky || this.index === sky.index
     }

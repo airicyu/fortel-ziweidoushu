@@ -25,6 +25,19 @@ class Runtime {
         return runtimeStarsLocation
     }
 
+    static getRuntimeLocationStars(sky: Sky) {
+        const runtimeLocationStars = new Map<Ground, MinorStar[]>()
+        for (const minorStar of this.getRuntimeStars()) {
+            const ground = MinorStar.minorStarPlacers.get(minorStar)!.evalRuntimeGround(sky)
+            if (!runtimeLocationStars.has(ground)) {
+                runtimeLocationStars.set(ground, [minorStar])
+            } else {
+                runtimeLocationStars.get(ground)?.push(minorStar)
+            }
+        }
+        return runtimeLocationStars
+    }
+
     static getDerivativeMapOf(sky: Sky): Map<StarDerivative, MajorStar | MinorStar> {
         const starDerivativeMap = new Map<StarDerivative, MajorStar | MinorStar>()
 
@@ -32,6 +45,17 @@ class Runtime {
         starDerivativeMap.set(StarDerivative.POWER, StarDerivative.getPowerStar(sky))
         starDerivativeMap.set(StarDerivative.FAME, StarDerivative.getFameStar(sky))
         starDerivativeMap.set(StarDerivative.PROBLEM, StarDerivative.getProblemStar(sky))
+
+        return starDerivativeMap
+    }
+
+    static getStarToDerivativeMapOf(sky: Sky): Map<MajorStar | MinorStar, StarDerivative> {
+        const starDerivativeMap = new Map<MajorStar | MinorStar, StarDerivative>()
+
+        starDerivativeMap.set(StarDerivative.getWealthinessStar(sky), StarDerivative.WEALTHINESS)
+        starDerivativeMap.set(StarDerivative.getPowerStar(sky), StarDerivative.POWER)
+        starDerivativeMap.set(StarDerivative.getFameStar(sky), StarDerivative.FAME)
+        starDerivativeMap.set(StarDerivative.getProblemStar(sky), StarDerivative.PROBLEM)
 
         return starDerivativeMap
     }

@@ -48,6 +48,10 @@ class Ground {
         }),
     )
 
+    static values(): readonly Readonly<Ground>[] {
+        return Ground.GROUNDS
+    }
+
     equals(ground: Ground): boolean {
         return this === ground || this.index === ground.index
     }

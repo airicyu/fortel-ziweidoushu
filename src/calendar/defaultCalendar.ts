@@ -21,6 +21,9 @@ const defaultCalendar: Calendar = {
         dayGround: Ground
     } {
         const result = calendar.solar2lunar(solarYear, solarMonth, solarDay)
+        if (this.solarMonthDays(solarYear, solarMonth) < solarDay) {
+            throw new Error('Invalid date')
+        }
         if (result !== -1) {
             return {
                 lunarYear: result.lYear,
@@ -43,6 +46,9 @@ const defaultCalendar: Calendar = {
         lunarDay: number,
         isLeapMonth: boolean,
     ): { solarYear: number; solarMonth: number; solarDay: number } {
+        if (this.lunarMonthDays(lunarYear, lunarMonth, isLeapMonth) < lunarDay) {
+            throw new Error('Invalid date')
+        }
         const result = calendar.lunar2solar(lunarYear, lunarMonth, lunarDay, isLeapMonth)
         if (result !== -1) {
             return {
@@ -71,6 +77,19 @@ const defaultCalendar: Calendar = {
             }
         }
         throw new Error('Invalid date')
+    },
+    lunarMonthDays: function (year: number, month: number, leap: boolean): number {
+        if (!leap) {
+            return calendar.monthDays(year, month)
+        } else {
+            if (calendar.leapMonth(year) != month) {
+                throw new Error('Invalid date')
+            }
+            return calendar.leapDays(year)
+        }
+    },
+    solarMonthDays: function (year: number, month: number): number {
+        return calendar.solarDays(year, month)
     },
 }
 

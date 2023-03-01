@@ -1,24 +1,9 @@
 import { Ground } from '../model/ground'
 import { Sky } from '../model/sky'
 
-export class CalendarType {
-    key: string
-    displayName: string
-    constructor(key: string, displayName: string) {
-        this.key = key
-        this.displayName = displayName
-    }
-
-    toJSON() {
-        return this.displayName
-    }
-
-    toString(): string {
-        return this.displayName
-    }
-
-    static SOLAR = Object.freeze(new CalendarType('SOLAR', '公曆'))
-    static LUNAR = Object.freeze(new CalendarType('LUNAR', '農曆'))
+export enum CalendarType {
+    LUNAR = 'LUNAR',
+    SOLAR = 'SOLAR',
 }
 
 export declare type Calendar = {
@@ -63,4 +48,7 @@ export declare type Calendar = {
         daySky: Sky
         dayGround: Ground
     }
+
+    lunarMonthDays: (year: number, month: number, leap: boolean) => number
+    solarMonthDays: (year: number, month: number) => number
 }

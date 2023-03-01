@@ -12,6 +12,8 @@ import { StarDerivative } from './starDerivative'
 import { Temple } from './temple'
 import util from 'util'
 import { Star } from './star'
+import type { Calendar } from './../calendar/calender'
+import { defaultCalendar, Runtime } from '../main'
 
 class DestinyBoard {
     config: DestinyConfig
@@ -384,6 +386,88 @@ class DestinyBoard {
         }
     }
 
+    getRuntimContext({
+        lunarYear,
+        lunarMonth,
+        lunarDay,
+        leap,
+        calendar,
+    }: {
+        lunarYear: number
+        lunarMonth: number
+        lunarDay: number
+        leap: boolean
+        calendar?: Calendar
+    }): RuntimeContext {
+        calendar = calendar ?? defaultCalendar
+
+        const age = lunarYear - this.config.year + 1
+        const tenYearGround = this.getTenYearCellGround(age)
+
+        const runtimeDateContext = {
+            age,
+            effectiveMonth: lunarMonth + (leap && lunarDay > 15 ? 1 : 0),
+            tenYearGround,
+            tenYearSky: this.getCellByGround(tenYearGround).sky,
+            ...calendar.lunarSkyGround(lunarYear, lunarMonth, lunarDay, leap),
+        }
+
+        runtimeDateContext.monthSky = Sky.get((((runtimeDateContext.yearSky.index % 5) + 1) * 2 + (runtimeDateContext.effectiveMonth - 1)) % 10)
+        runtimeDateContext.monthGround = Ground.get(runtimeDateContext.effectiveMonth + 1)
+
+        const runtimeBoardState: {
+            tenYear: {
+                cellGround: Ground | null
+                groundStars: Map<Ground, MinorStar[]> | null
+                starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+            }
+            year: {
+                cellGround: Ground | null
+                groundStars: Map<Ground, MinorStar[]> | null
+                starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+            }
+            month: {
+                cellGround: Ground | null
+                groundStars: Map<Ground, MinorStar[]> | null
+                starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+            }
+            day: {
+                cellGround: Ground | null
+                groundStars: Map<Ground, MinorStar[]> | null
+                starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+            }
+        } = {
+            tenYear: { cellGround: null, groundStars: null, starDerivativeMap: null },
+            year: { cellGround: null, groundStars: null, starDerivativeMap: null },
+            month: { cellGround: null, groundStars: null, starDerivativeMap: null },
+            day: { cellGround: null, groundStars: null, starDerivativeMap: null },
+        }
+
+        runtimeBoardState.tenYear.cellGround = runtimeDateContext.tenYearGround
+        runtimeBoardState.tenYear.groundStars = Runtime.getRuntimeLocationStars(runtimeDateContext.tenYearSky)
+        runtimeBoardState.tenYear.starDerivativeMap = Runtime.getStarToDerivativeMapOf(runtimeDateContext.tenYearSky)
+
+        runtimeBoardState.year.cellGround = runtimeDateContext.yearGround
+        runtimeBoardState.year.groundStars = Runtime.getRuntimeLocationStars(runtimeDateContext.yearSky)
+        runtimeBoardState.year.starDerivativeMap = Runtime.getStarToDerivativeMapOf(runtimeDateContext.yearSky)
+
+        runtimeBoardState.month.cellGround = this.startControl.shift(runtimeDateContext.yearGround.index).shift(lunarMonth - 1)
+        runtimeBoardState.month.groundStars = Runtime.getRuntimeLocationStars(runtimeDateContext.monthSky)
+        runtimeBoardState.month.starDerivativeMap = Runtime.getStarToDerivativeMapOf(runtimeDateContext.monthSky)
+
+        runtimeBoardState.day.cellGround = runtimeBoardState.month.cellGround.shift(lunarDay - 1)
+        if (leap) {
+            runtimeBoardState.day.cellGround = runtimeBoardState.day.cellGround.shift(calendar.lunarMonthDays(lunarYear, lunarMonth, false))
+        }
+        runtimeBoardState.day.groundStars = Runtime.getRuntimeLocationStars(runtimeDateContext.daySky)
+        runtimeBoardState.day.starDerivativeMap = Runtime.getStarToDerivativeMapOf(runtimeDateContext.daySky)
+
+        return {
+            ...runtimeDateContext,
+            ...runtimeBoardState,
+        }
+    }
+
     get shadowLight(): ShadowLight {
         return this.config.yearSky.index % 2 == 0 ? ShadowLight.LIGHT : ShadowLight.SHADOW
     }
@@ -446,6 +530,39 @@ class DestinyBoard {
             `}`
         )
     }
+}
+
+export type RuntimeContext = {
+    tenYear: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    year: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    month: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    day: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    yearSky: Sky
+    yearGround: Ground
+    monthSky: Sky
+    monthGround: Ground
+    daySky: Sky
+    dayGround: Ground
+    age: number
+    effectiveMonth: number
+    tenYearGround: Ground
+    tenYearSky: Sky
 }
 
 export { DestinyBoard }

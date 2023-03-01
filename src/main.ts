@@ -1,4 +1,4 @@
-import { Calendar } from './calendar/calender'
+import { Calendar, CalendarType } from './calendar/calender'
 import { defaultCalendar } from './calendar/defaultCalendar'
 import { BoardCriteria, CellsScope } from './criteria/boardCriteria'
 import { DestinyConfigBuilder } from './util/destinyConfigBuilder'
@@ -18,6 +18,7 @@ import { StarDerivative } from './model/starDerivative'
 import { Temple } from './model/temple'
 import { destinyConfigTextParser } from './util/destinyConfigTextParser'
 import { starByName, starByKey } from './util/starUtil'
+import type { RuntimeContext } from './model/destinyBoard'
 
 // prettier-ignore
 export {
@@ -34,11 +35,12 @@ export {
     Sky, Ground, DestinyBoard,
     Cell, BorrowCell, Temple,
     MajorStar, MinorStar, MiniStar,
+    RuntimeContext,
     StarDerivative, Runtime,
     // misc enums
     LifeStage, Element, Luckiness, ShadowLight, Direction,
     // calendar
-    defaultCalendar,
+    defaultCalendar, CalendarType,
     // util
     starByName, starByKey
 }

@@ -60,6 +60,10 @@ class DayTimeGround {
             throw new Error('Not found')
         }
     }
+
+    static values(): readonly Readonly<DayTimeGround>[] {
+        return DAY_TIME_GROUNDS
+    }
 }
 
 const DAY_TIME_GROUNDS = Object.freeze([
