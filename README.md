@@ -189,6 +189,72 @@ This means we check for the temple having **ANY ONE OF stars** 武曲, 貪狼.
 
 --------
 
+#### Runtime Context (大運/流年/流月/流日資訊)
+
+(Sorry if it is bad translation.)
+
+After you build the destiny board object, you can then call the "getRuntimContext" method to get the context info.
+
+```javascript
+const runtimeContext = destinyBoard.getRuntimContext({
+    lunarYear: 2023,
+    lunarMonth: 5,
+    lunarDay: 1,
+    leap: false,
+})
+```
+
+The type of RuntimeContext is like this:
+```
+export type RuntimeContext = {
+    tenYear: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    year: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    month: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    day: {
+        cellGround: Ground | null
+        groundStars: Map<Ground, MinorStar[]> | null
+        starDerivativeMap: Map<MajorStar | MinorStar, StarDerivative> | null
+    }
+    yearSky: Sky
+    yearGround: Ground
+    monthSky: Sky
+    monthGround: Ground
+    daySky: Sky
+    dayGround: Ground
+    age: number
+    effectiveMonth: number
+    tenYearGround: Ground
+    tenYearSky: Sky
+}
+```
+
+At the root level, tenYear is 十年/大運, year is 流年, month is 流月, day is 流日. Other attribites are extra info of the date.
+
+At the second level,
+
+- cellGround : Destiny Temple ground.
+- groundStars : Map of Temple ground to star 
+- starDerivativeMap : Map of star derivative.
+  
+中文翻譯這段:
+- cellGround : 流X命宮地支
+- groundStars : 流X飛星表, key是地支, value是該宮所擁有的飛星
+- starDerivativeMap : 流X四化表, key是星, value是化祿/科/權/忌
+
+----
+
 ## Author
 
 Airic Yu
