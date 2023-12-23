@@ -1,6 +1,6 @@
 {
   "name": "fortel-ziweidoushu",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "紫微斗數排盤 Zi Wei Dou Shu",
   "keywords": [
     "紫微斗數",
@@ -10,7 +10,7 @@
   ],
   "main": "build/main.js",
   "module": "build/main.js",
-  "typings": "build/types/lib.d.ts",
+  "typings": "build/types/main.d.ts",
   "author": "airicyu",
   "repository": {
     "type": "git",

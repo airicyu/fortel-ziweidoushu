@@ -7,7 +7,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "./build/types",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "allowJs": true,
