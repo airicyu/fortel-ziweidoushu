@@ -157,7 +157,7 @@ class DestinyBoard {
                 destinyTempleCellGround = bodyTempleGround
                 break
             case ConfigType.HUMAN:
-                destinyTempleCellGround = Ground.get(-this.config.bornTimeGround.ground.shift(2).index + 2 + this.config.getLogicalMonth() - 1)
+                destinyTempleCellGround = Ground.get(-this.config.bornTimeGround.ground.index + 2 + this.config.getLogicalMonth() - 1 + 2)
                 break
             case ConfigType.SKY:
             default:

@@ -6,6 +6,7 @@ import { MinorStar } from '../src/model/minorStar'
 import { Temple } from '../src/model/temple'
 import { BoardCriteria } from '../src/criteria/boardCriteria'
 import { Element } from '../src/model/miscEnums'
+import { StarDerivative } from '../src/main'
 
 describe('Test generate sample boards', () => {
     it('Test board 1', () => {
@@ -201,5 +202,20 @@ describe('Test generate sample boards', () => {
                 bornStarDerivativeMap: { 祿: '天梁', 權: '紫微', 科: '天府', 忌: '武曲' },
             }),
         )
+    })
+
+    it('Test board 2', () => {
+        const destinyBoard: DestinyBoard = new DestinyBoard(DestinyConfigBuilder.withText('1990年9月10日子時人盤男'))
+
+        expect(destinyBoard).toBeInstanceOf(DestinyBoard)
+        expect(destinyBoard.element).toBe(Element.FIRE)
+        expect(destinyBoard.getCellByTemple(Temple.TEMPLE_DESTINY).ground).toBe(Ground.getByName('子'))
+        expect(destinyBoard.startControl).toBe(Ground.getByName('辰'))
+
+        expect(
+            new BoardCriteria(destinyBoard).ofTemple(Temple.TEMPLE_DESTINY).hasAllStars([MajorStar.MAJOR_STAR_ENJOYMENT, MajorStar.MAJOR_STAR_MOON]),
+        ).toBe(true)
+
+        expect(destinyBoard.getMajorStarDerivative(MajorStar.MAJOR_STAR_ENJOYMENT)).toEqual(StarDerivative.PROBLEM)
     })
 })
