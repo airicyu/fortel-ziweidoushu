@@ -7,14 +7,18 @@ import { Runtime } from './../src/model/runtime'
 
 describe('Test runtime', () => {
     it('Test runtime', () => {
-        const runtimeStarLocation = Runtime.getRuntimeStarsLocation(Sky.get(0))
-        expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_EARN)).toBe(Ground.getByName('寅'))
-        expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_BENEFACTOR_MAN)).toBe(Ground.getByName('丑'))
-        expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_BENEFACTOR_WOMAN)).toBe(Ground.getByName('未'))
-        expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_CLEVER)).toBe(Ground.getByName('巳'))
-        expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_SKILL)).toBe(Ground.getByName('酉'))
-        expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_COMPETITION)).toBe(Ground.getByName('卯'))
-        expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_HINDRANCE)).toBe(Ground.getByName('丑'))
+
+        for (let i = 0; i < 10; i++) {
+            const runtimeStarLocation = Runtime.getRuntimeStarsLocation(Sky.get(i))
+            expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_EARN)).toBe(Ground.getByName('寅卯巳午巳午申酉亥子'[i]))
+
+            expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_BENEFACTOR_MAN)).toBe(Ground.getByName('丑子亥亥丑子丑午卯卯'[i]))
+            expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_BENEFACTOR_WOMAN)).toBe(Ground.getByName('未申酉酉未申未寅巳巳'[i]))
+            expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_CLEVER)).toBe(Ground.getByName('巳午申酉申酉亥子寅卯'[i]))
+            expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_SKILL)).toBe(Ground.getByName('酉申午巳午巳卯寅子亥'[i]))
+            expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_COMPETITION)).toBe(Ground.getByName('卯辰午未午未酉戌子丑'[i]))
+            expect(runtimeStarLocation.get(MinorStar.MINOR_STAR_HINDRANCE)).toBe(Ground.getByName('丑寅辰巳辰巳未申戌亥'[i]))
+        }
 
         const expectMap: (MajorStar | MinorStar)[][] = [
             [MajorStar.MAJOR_STAR_FIRE, MajorStar.MAJOR_STAR_PIONEER, MajorStar.MAJOR_STAR_GOLD, MajorStar.MAJOR_STAR_SUN],

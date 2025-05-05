@@ -84,7 +84,7 @@ class MinorStar implements Star {
             },
             hasRuntime: () => true,
             evalRuntimeGround: (sky: Sky) => {
-                return Ground.get([1, 0, 11, 11, 1, 0, 1, 2, 3, 3][sky.index])
+                return Ground.get([1, 0, 11, 11, 1, 0, 1, 6, 3, 3][sky.index])
             },
         })
 
@@ -95,7 +95,7 @@ class MinorStar implements Star {
             },
             hasRuntime: () => true,
             evalRuntimeGround: (sky: Sky) => {
-                return Ground.get([7, 8, 9, 9, 7, 8, 7, 6, 5, 5][sky.index])
+                return Ground.get([7, 8, 9, 9, 7, 8, 7, 2, 5, 5][sky.index])
             },
         })
 
